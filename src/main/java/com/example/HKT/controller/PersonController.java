@@ -34,12 +34,14 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public Person updatePerson(@PathVariable int id, @RequestBody Person person){
-        return personService.updatePerson(id, person);
+    public ApiResponse<Person> updatePerson(@PathVariable int id, @RequestBody Person person){
+         Person updatedPerson =  personService.updatePerson(id, person);
+        return new ApiResponse<>("Successfully updated", updatedPerson);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable int id){
+    public ApiResponse<Void> deletePerson(@PathVariable int id){
         personService.deletePerson(id);
+        return new ApiResponse<>("Successfully deleted ", null);
     }
 }

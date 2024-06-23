@@ -4,9 +4,9 @@ import com.example.HKT.entity.Person;
 import com.example.HKT.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -15,7 +15,8 @@ public class PersonService {
      private PersonRepository personRepository;
 
     public List<Person> getAllPersons(){
-        return personRepository.findAll();
+        List<Person> allPerson = personRepository.findAll();
+        return allPerson.stream().map(this::addedCountryCodeOnEach).collect(Collectors.toList());
     }
 
     public Person getPersonById(int id){
@@ -23,6 +24,11 @@ public class PersonService {
     }
 
     public Person createPerson(Person person){
+        String phoneNumber = person.getPhone();
+        if(!phoneNumber.startsWith("+91")){
+            phoneNumber = "+91 "+phoneNumber;
+        }
+        person.setPhone(phoneNumber);
         return personRepository.save(person);
     }
 
@@ -39,5 +45,19 @@ public class PersonService {
     }
     public void deletePerson(int id){
         personRepository.deleteById(id);
+    }
+
+    private Person addedCountryCodeOnEach(Person person){
+        if(person !=null){
+            person.setPhone(addCountryCode(person.getPhone()));
+        }
+        return person;
+    }
+
+    private String addCountryCode(String phoneNumber){
+        if(phoneNumber != null && !phoneNumber.startsWith("+91")){
+            phoneNumber = "+91 "+phoneNumber;
+        }
+        return phoneNumber;
     }
 }
