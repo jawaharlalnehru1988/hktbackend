@@ -5,7 +5,9 @@ import com.example.HKT.repository.EssayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EssayService {
@@ -37,5 +39,44 @@ public class EssayService {
 
     public void deleteEssay(int id){
         essayRepository.deleteById(id);
+    }
+
+    public Map<String, Object> findMaxMinFrequency(int[] arr) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+
+        // Calculate the frequency of each element in the array
+        for (int num : arr) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        int maxFrequency = Integer.MIN_VALUE;
+        int minFrequency = Integer.MAX_VALUE;
+        int maxFreqElement = arr[0];
+        int minFreqElement = arr[0];
+
+        // Find the elements with the maximum and minimum frequencies
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            int key = entry.getKey();
+            int frequency = entry.getValue();
+
+            if (frequency > maxFrequency) {
+                maxFrequency = frequency;
+                maxFreqElement = key;
+            }
+
+            if (frequency < minFrequency) {
+                minFrequency = frequency;
+                minFreqElement = key;
+            }
+        }
+
+        // Prepare the result
+        Map<String, Object> result = new HashMap<>();
+        result.put("maxFrequencyElement", maxFreqElement);
+        result.put("maxFrequency", maxFrequency);
+        result.put("minFrequencyElement", minFreqElement);
+        result.put("minFrequency", minFrequency);
+
+        return result;
     }
 }

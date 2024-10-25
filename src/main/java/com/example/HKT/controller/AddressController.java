@@ -15,11 +15,15 @@ public class AddressController {
 
     @Autowired
     public AddressController(AddressService addressService) {
+
         this.addressService = addressService;
     }
 
     @GetMapping
-    public List<Address> getAllAddresses() {
+    public List<Address> getAllAddresses(@RequestParam(required = false) String postcode) {
+        if(postcode !=null && !postcode.isEmpty()){
+            return addressService.getAddressByPostcode(postcode);
+        }
         return addressService.getAllAddresses();
     }
 

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/essays")
@@ -15,6 +16,7 @@ public class EssayController {
     @Autowired
     private EssayService essayService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public List<Essay> getAllEssays(){
         return essayService.getAllEssays();
@@ -25,6 +27,7 @@ public class EssayController {
         return essayService.getEssayById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<Essay> createEssays(@RequestBody Essay essay){

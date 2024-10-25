@@ -10,4 +10,6 @@ public interface AddressService {
     Address createAddress(Address address);
     Address updateAddress(Integer id, Address address);
     void deleteAddress(Integer id);
+
+    List<Address> getAddressByPostcode(String postcode);
 }

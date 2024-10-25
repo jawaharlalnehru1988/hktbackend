@@ -44,4 +44,9 @@ public class AddressServiceImpl implements AddressService {
     public void deleteAddress(Integer id) {
         addressRepository.deleteById(id);
     }
+
+    @Override
+    public List<Address> getAddressByPostcode(String postcode) {
+        return addressRepository.findByPostcode(postcode);
+    }
 }
