@@ -53,6 +53,11 @@ public class StudentServiceImpl implements StudentsService {
     }
 
     @Override
+    public StudentsDto getStudentById(Integer id){
+        StudentsEntity student = repository.findById(id).orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+        return convertToDto(student);
+    }
+    @Override
     public Long getStudentsCount(){
         return repository.count();
 
