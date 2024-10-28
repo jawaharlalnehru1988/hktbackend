@@ -1,50 +1,36 @@
 package com.example.HKT.controller;
 
-import com.example.HKT.entity.ApiResponse;
-import com.example.HKT.entity.Essay;
+import com.example.HKT.DTOs.EssayDto;
 import com.example.HKT.service.EssayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/essays")
+@RequestMapping("essays")
 public class EssayController {
     @Autowired
     private EssayService essayService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping()
-    public List<Essay> getAllEssays(){
-        return essayService.getAllEssays();
+    @GetMapping
+    public ResponseEntity<List<EssayDto>> getAllEssays(){
+       List<EssayDto> fetchedDatas = essayService.getAllEssays();
+       return new ResponseEntity<>(fetchedDatas, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Essay getEssayById(@PathVariable int id){
-        return essayService.getEssayById(id);
+    public ResponseEntity<EssayDto> getEssayById(@PathVariable Integer id){
+        EssayDto essay = essayService.getEssayByid(id);
+        return new ResponseEntity<>(essay, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<Essay> createEssays(@RequestBody Essay essay){
-        Essay createdEssay = essayService.createEssay(essay);
-              return new ApiResponse<>("Successfull Added", createdEssay);
+    @PostMapping("/addEssay")
+    public ResponseEntity<EssayDto> createNewEssay(@RequestBody EssayDto essay){
+        EssayDto newEssay = essayService.saveNewEssay(essay);
+        return new ResponseEntity<>(newEssay, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ApiResponse<Essay> updateEssay(@PathVariable int id, @RequestBody Essay essayDetails) {
-        Essay updatedEssay = essayService.updateEssay(id, essayDetails);
-        return new ApiResponse<>("Successfully updated", updatedEssay);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ApiResponse<Void> deleteEssay(@PathVariable int id) {
-        essayService.deleteEssay(id);
-        return new ApiResponse<>("Successfully deleted", null);
-    }
 }
