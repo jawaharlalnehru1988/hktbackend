@@ -4,16 +4,8 @@ import com.example.HKT.DTOs.StudentsDto;
 import com.example.HKT.entity.StudentsEntity;
 import com.example.HKT.repository.StudentsRepository;
 import com.example.HKT.service.StudentsService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

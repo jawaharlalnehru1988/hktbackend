@@ -1,59 +1,49 @@
 package com.example.HKT.controller;
 
-import com.example.HKT.entity.Address;
+import com.example.HKT.DTOs.AddressDto;
 import com.example.HKT.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/addresses")
+@RequestMapping("addresses")
 public class AddressController {
-    private final AddressService addressService;
 
     @Autowired
-    public AddressController(AddressService addressService) {
-
-        this.addressService = addressService;
-    }
+    private AddressService addressService;
 
     @GetMapping
-    public List<Address> getAllAddresses(@RequestParam(required = false) String postcode) {
-        if(postcode !=null && !postcode.isEmpty()){
-            return addressService.getAddressByPostcode(postcode);
-        }
-        return addressService.getAllAddresses();
+    public ResponseEntity<List<AddressDto>> getAllAddresses() {
+        List<AddressDto> addressList = addressService.getAllAddresses();
+        return new ResponseEntity<>(addressList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> getAddressById(@PathVariable Integer id) {
-        Address address = addressService.getAddressById(id);
-        if (address != null) {
-            return ResponseEntity.ok(address);
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<AddressDto> getAddressById(@PathVariable Integer id){
+        AddressDto addressObj = addressService.getAddressById(id);
+        return new ResponseEntity<>(addressObj, HttpStatus.OK);
     }
 
-    @PostMapping
-    public Address createAddress(@RequestBody Address address) {
-        System.out.println("Received payload: " + address);
-        return addressService.createAddress(address);
+    @PostMapping("createAddress")
+    public ResponseEntity<AddressDto> createAddress(@RequestBody AddressDto payload){
+        AddressDto postedObj = addressService.createAddress(payload);
+        return new ResponseEntity<>(postedObj, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Integer id, @RequestBody Address address) {
-        Address updatedAddress = addressService.updateAddress(id, address);
-        if (updatedAddress != null) {
-            return ResponseEntity.ok(updatedAddress);
-        }
-        return ResponseEntity.notFound().build();
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AddressDto> updateAddress(@RequestBody AddressDto payload, @PathVariable Integer id){
+        AddressDto updateObj = addressService.updateAddress(payload, id);
+        return new ResponseEntity<>(updateObj, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAddress(@PathVariable Integer id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteAddress(@PathVariable Integer id){
         addressService.deleteAddress(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("Address with the id " + id + " deleted Successfully.", HttpStatus.OK);
     }
+
 }

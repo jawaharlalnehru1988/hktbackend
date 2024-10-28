@@ -1,15 +1,16 @@
 package com.example.HKT.service;
 
-import com.example.HKT.entity.Address;
+import com.example.HKT.DTOs.AddressDto;
+import com.example.HKT.entity.AddressEntity;
 
 import java.util.List;
 
 public interface AddressService {
-    List<Address> getAllAddresses();
-    Address getAddressById(Integer id);
-    Address createAddress(Address address);
-    Address updateAddress(Integer id, Address address);
-    void deleteAddress(Integer id);
+    List<AddressDto> getAllAddresses();
+    public AddressDto getAddressById(Integer id);
+    public AddressDto createAddress(AddressDto dto);
 
-    List<Address> getAddressByPostcode(String postcode);
+    public AddressDto updateAddress(AddressDto dto, Integer id);
+    public void deleteAddress(Integer id);
+
 }
