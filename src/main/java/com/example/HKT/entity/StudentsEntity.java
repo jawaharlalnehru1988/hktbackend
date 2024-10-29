@@ -24,4 +24,8 @@ public class StudentsEntity {
 
     @Column(name = "City")
     private String city;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "students")
+    @JoinColumn(name = "laptop_id")
+    private Laptop laptop;
 }

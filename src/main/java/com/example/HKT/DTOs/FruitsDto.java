@@ -16,4 +16,5 @@ public class FruitsDto {
     private Integer id;
     private String name;
     private BigDecimal price;
+    private String image;
 }
