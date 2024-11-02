@@ -18,7 +18,7 @@ public class StudentServiceImpl implements StudentsService {
     @Override
     public List<StudentsDto> getAllStudents(){
         List<StudentsEntity> studentList = repository.findAll();
-        return  studentList.stream().map(this::convertToDto).collect(Collectors.toList());
+        return studentList.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @Override
