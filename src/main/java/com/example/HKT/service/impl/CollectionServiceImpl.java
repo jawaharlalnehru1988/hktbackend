@@ -35,7 +35,7 @@ public class CollectionServiceImpl implements CollectionService {
                 new PersonDto("Govinda", 26, 12.6f)
         );
 
-        List<PersonDto> persons = people.stream().filter(person -> person.getAge() > 24).collect(Collectors.toList());
+        List<PersonDto> persons = people.stream().filter(PersonDto::isAbove).collect(Collectors.toList());
         return persons;
     }
 }

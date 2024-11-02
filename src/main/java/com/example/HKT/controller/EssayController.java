@@ -33,4 +33,17 @@ public class EssayController {
         return new ResponseEntity<>(newEssay, HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteEssay/{id}")
+    public ResponseEntity<String> deleteEssay(@PathVariable Integer id){
+            essayService.deleteEssay(id);
+        return new ResponseEntity<>("successfully deleted the essay with id " + id + " ", HttpStatus.OK);
+    }
+
+    @PutMapping("/updateEssay/{id}")
+    public ResponseEntity<EssayDto> updateEssay(@RequestBody EssayDto dto, @PathVariable Integer id){
+          EssayDto updateEssay =  essayService.updateEssay(dto, id);
+          return new ResponseEntity<>(updateEssay, HttpStatus.OK);
+    }
+
+
 }

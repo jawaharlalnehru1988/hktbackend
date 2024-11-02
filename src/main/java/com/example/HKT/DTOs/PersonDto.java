@@ -10,4 +10,8 @@ public class PersonDto {
     public String name;
     public int age;
     public Float marks;
+
+    public boolean isAbove(){
+        return age>25;
+    }
 }

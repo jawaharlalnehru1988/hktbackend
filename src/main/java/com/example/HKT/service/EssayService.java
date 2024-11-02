@@ -10,5 +10,7 @@ public interface EssayService {
     public List<EssayDto> getAllEssays();
     public EssayDto getEssayByid(Integer id);
     public EssayDto saveNewEssay(EssayDto essay);
+    public void deleteEssay(Integer id);
+    public EssayDto updateEssay(EssayDto essay, Integer id);
 
 }

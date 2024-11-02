@@ -35,6 +35,23 @@ public class EssayServiceImpl implements EssayService {
         return convertToDto(savedEssay);
     }
 
+    @Override
+    public void deleteEssay(Integer id){
+        EssayEntity essay = essayRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found the record with the id " + id));
+        essayRepository.delete(essay);
+    }
+
+    @Override
+    public EssayDto updateEssay(EssayDto essay, Integer id){
+        EssayEntity essayFound = essayRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found the essay content"));
+        essayFound.setTitle(essay.getTitle());
+        essayFound.setEssayContent(essay.getEssayContent());
+        essayFound.setAuthorName(essay.getAuthorName());
+//        essayFound.setEssayId(essay.getEssayId());
+        EssayEntity updatedEssay = essayRepository.save(essayFound);
+        return convertToDto(updatedEssay);
+    }
+
     private EssayDto convertToDto(EssayEntity entity){
         EssayDto dto = new EssayDto();
         dto.setEssayId(entity.getEssayId());
