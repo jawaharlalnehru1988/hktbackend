@@ -61,6 +61,8 @@ public ResponseEntity<Long> getStudentCount(){
         Long count = studentsService.getStudentsCount();
         return new ResponseEntity<>(count, HttpStatus.OK);
 }
+
+
     @PutMapping("/updateStudent/{id}")
     public ResponseEntity<StudentsDto> updateStudentConfig(@PathVariable Integer id, @RequestBody StudentsDto dto) {
         StudentsDto updatedStudent = studentsService.updateStudentConfig(id, dto);
