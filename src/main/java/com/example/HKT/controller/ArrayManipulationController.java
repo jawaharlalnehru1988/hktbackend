@@ -1,5 +1,6 @@
 package com.example.HKT.controller;
 
+import com.example.HKT.DTOs.PeopleDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,4 +20,21 @@ public class ArrayManipulationController {
         return sum;
 
     }
+
+    @GetMapping("/average")
+    public double calculateAverageAge(){
+        PeopleDTO[] people = {
+                new PeopleDTO("Hare", 12),
+                new PeopleDTO("Krishna", 34),
+                new PeopleDTO("Ram", 32)
+        };
+
+        int sum = 0;
+        for (PeopleDTO person: people){
+            sum += person.getAge();
+        }
+
+        return (double) sum / people.length;
+    }
+
 }
