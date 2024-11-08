@@ -16,5 +16,5 @@ public interface StudentsService {
     public void deleteStudentsById(Integer id);
     public Long getStudentsCount();
     public StudentsDto getStudentById(Integer id);
-    public StudentsDto getStudentByName(String SName);
+//    public StudentsDto getStudentByName(String SName);
 }

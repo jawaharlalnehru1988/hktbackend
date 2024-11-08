@@ -75,9 +75,6 @@ public class CollectionController {
      fruits2.add( "Orange");
      fruits2.add("Cherry");
      fruits2.addAll(fruit);
-
-
      return fruits2;
-
     }
 }

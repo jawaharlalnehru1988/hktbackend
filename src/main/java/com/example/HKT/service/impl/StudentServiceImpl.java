@@ -55,11 +55,11 @@ public class StudentServiceImpl implements StudentsService {
 
     }
 
-    @Override
-    public StudentsDto getStudentByName(String SName){
-        StudentsEntity studentObj = repository.findByStudentName(SName).orElseThrow(() -> new RuntimeException("Student not found with the name " + SName));
-        return convertToDto(studentObj);
-    }
+//    @Override
+//    public StudentsDto getStudentByName(String SName){
+//        StudentsEntity studentObj = repository.findByStudentName(SName).orElseThrow(() -> new RuntimeException("Student not found with the name " + SName));
+//        return convertToDto(studentObj);
+//    }
 
 
 
