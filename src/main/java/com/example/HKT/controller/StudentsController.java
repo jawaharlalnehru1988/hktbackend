@@ -2,11 +2,13 @@ package com.example.HKT.controller;
 
 import com.example.HKT.DTOs.StudentsDto;
 import com.example.HKT.Message.CustomResponse;
+import com.example.HKT.exceptionHandler.CustomErrorResponse;
 import com.example.HKT.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -69,5 +71,14 @@ public ResponseEntity<Long> getStudentCount(){
         return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<CustomErrorResponse> handleTypeMismatchException(MethodArgumentTypeMismatchException ex){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                "Invalid URL parameter: Expected an integer but received a string",
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 
 }
