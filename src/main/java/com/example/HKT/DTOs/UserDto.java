@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    private Long id;
+    private Integer id;
     private String name;
     private ProfileDto profileDto = new ProfileDto();
 }
